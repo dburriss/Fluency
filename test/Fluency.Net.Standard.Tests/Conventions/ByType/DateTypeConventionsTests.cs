@@ -31,13 +31,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByType
             [Fact]
             public void should_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeTrue();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeTrue();
             }
 
             [Fact]
             public void should_return_a_random_date()
             {
-                convention.DefaultValue(propertyInfo).Should().NotBe(default(DateTime));
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().NotBe(default(DateTime));
             }
         }
 
@@ -53,13 +53,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByType
             [Fact]
             public void should_not_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeFalse();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeFalse();
             }
 
             [Fact]
             public void should_return_the_default_datetime_value()
             {
-                convention.DefaultValue(propertyInfo).Should().Be(default(DateTime));
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().Be(default(DateTime));
             }
         }
     }

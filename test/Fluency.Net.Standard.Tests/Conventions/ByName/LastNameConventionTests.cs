@@ -31,13 +31,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByName
             [Fact]
             public void should_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeTrue();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeTrue();
             }
 
             [Fact]
             public void should_return_a_random_first_name()
             {
-                convention.DefaultValue(propertyInfo).Should().NotBeEmpty();
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().NotBeEmpty();
             }
         }
 
@@ -53,13 +53,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByName
             [Fact]
             public void should_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeTrue();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeTrue();
             }
 
             [Fact]
             public void should_return_a_random_first_name()
             {
-                convention.DefaultValue(propertyInfo).Should().NotBeEmpty();
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().NotBeEmpty();
             }
         }
 
@@ -76,13 +76,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByName
             [Fact]
             public void should_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeTrue();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeTrue();
             }
 
             [Fact]
             public void should_return_a_random_first_name()
             {
-                convention.DefaultValue(propertyInfo).Should().NotBeEmpty();
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().NotBeEmpty();
             }
         }
 
@@ -97,13 +97,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByName
             [Fact]
             public void should_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeTrue();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeTrue();
             }
 
             [Fact]
             public void should_return_a_random_first_name()
             {
-                convention.DefaultValue(propertyInfo).Should().NotBeEmpty();
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().NotBeEmpty();
             }
         }
 
@@ -118,13 +118,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByName
             [Fact]
             public void should_not_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeFalse();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeFalse();
             }
 
             [Fact]
             public void should_return_nothing()
             {
-                convention.DefaultValue(propertyInfo).Should().BeNull();
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().BeNull();
             }
         }
     }

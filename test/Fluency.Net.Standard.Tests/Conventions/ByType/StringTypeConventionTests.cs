@@ -31,13 +31,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByType
             [Fact]
             public void should_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeTrue();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeTrue();
             }
 
             [Fact]
             public void should_return_a_random_string_of_the_specified_length()
             {
-                convention.DefaultValue(propertyInfo).Length.Should().Be(expectedLength);
+                convention.DefaultValue(Variable.From(propertyInfo)).Length.Should().Be(expectedLength);
             }
         }
 
@@ -52,13 +52,13 @@ namespace Fluency.Net.Standard.Tests.Conventions.ByType
             [Fact]
             public void should_not_apply()
             {
-                convention.AppliesTo(propertyInfo).Should().BeFalse();
+                convention.AppliesTo(Variable.From(propertyInfo)).Should().BeFalse();
             }
 
             [Fact]
             public void should_return_nothing()
             {
-                convention.DefaultValue(propertyInfo).Should().BeNull();
+                convention.DefaultValue(Variable.From(propertyInfo)).Should().BeNull();
             }
         }
     }
