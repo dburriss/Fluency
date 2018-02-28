@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Fluency.DataGeneration;
 
 namespace Fluency.Conventions
@@ -17,10 +16,10 @@ namespace Fluency.Conventions
         /// <param name="propertyName">The property name to match on.</param>
         /// <param name="defaultValue">The default value to provide when the property name matches.</param>
         /// <returns>The constructed <see cref="IDefaultConvention{T}"/></returns>
-        public static LambdaConvention<T> ByName<T>(string propertyName, Func<PropertyInfo, T> defaultValue)
+        public static LambdaConvention<T> ByName<T>(string propertyName, Func<Variable, T> defaultValue)
         {
             return new LambdaConvention<T>(
-                p => p.PropertyType == typeof(T) && p.Name.ToLower().Contains(propertyName.ToLower()),
+                p => p.Type == typeof(T) && p.Name.ToLower().Contains(propertyName.ToLower()),
                 defaultValue);
         }
 
@@ -32,10 +31,10 @@ namespace Fluency.Conventions
         /// <typeparam name="T">The type of property to match on.</typeparam>
         /// <param name="defaultValue">The default value to provide for matching properties.</param>
         /// <returns>The constructed <see cref="IDefaultConvention{T}"/></returns>
-        public static LambdaConvention<T> ByType<T>(Func<PropertyInfo, T> defaultValue)
+        public static LambdaConvention<T> ByType<T>(Func<Variable, T> defaultValue)
         {
             return new LambdaConvention<T>(
-                p => p.PropertyType == typeof(T),
+                p => p.Type == typeof(T),
                 defaultValue);
         }
 
@@ -93,6 +92,11 @@ namespace Fluency.Conventions
         public static IDefaultConvention<int> IntegerType()
         {
             return ByType(p => ARandom.Int());
+        }
+
+        public static IDefaultConvention<object> Default()
+        {
+            return ByType(v => v.DefaultValue);
         }
     }
 }

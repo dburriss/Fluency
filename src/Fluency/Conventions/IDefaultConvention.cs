@@ -4,13 +4,13 @@ namespace Fluency.Conventions
 {
     public interface IDefaultConvention
     {
-        bool AppliesTo(PropertyInfo propertyInfo);
-        object DefaultValue(PropertyInfo propertyInfo);
+        bool AppliesTo(Variable v);
+        object DefaultValue(Variable v);
     }
 
 
     public interface IDefaultConvention<T> : IDefaultConvention
     {
-        new T DefaultValue(PropertyInfo propertyInfo);
+        new T DefaultValue(Variable v);
     }
 }

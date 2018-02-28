@@ -546,8 +546,8 @@ namespace Fluency
             foreach (var defaultConvention in _defaultConventions)
             {
                 // first convention match wins...
-                if (defaultConvention.AppliesTo(propertyInfo))
-                    return defaultConvention.DefaultValue(propertyInfo);
+                if (defaultConvention.AppliesTo(Variable.From(propertyInfo)))
+                    return defaultConvention.DefaultValue(Variable.From(propertyInfo));
             }
 
             // Returns null if no convention matched.

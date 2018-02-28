@@ -1,36 +1,35 @@
 ﻿using System;
-using System.Reflection;
 
 namespace Fluency.Conventions
 {
     public class LambdaConvention<T> : IDefaultConvention<T>
     {
-        readonly Func<PropertyInfo, T> _defaultValue;
-        readonly Predicate<PropertyInfo> _appliesTo;
+        readonly Func<Variable, T> _defaultValue;
+        readonly Predicate<Variable> _appliesTo;
 
 
-        public LambdaConvention(Predicate<PropertyInfo> appliesTo, Func<PropertyInfo, T> defaultValue)
+        public LambdaConvention(Predicate<Variable> appliesTo, Func<Variable, T> defaultValue)
         {
             _appliesTo = appliesTo;
             _defaultValue = defaultValue;
         }
 
 
-        public bool AppliesTo(PropertyInfo propertyInfo)
+        public bool AppliesTo(Variable v)
         {
-            return _appliesTo.Invoke(propertyInfo);
+            return _appliesTo.Invoke(v);
         }
 
 
-        object IDefaultConvention.DefaultValue(PropertyInfo propertyInfo)
+        object IDefaultConvention.DefaultValue(Variable v)
         {
-            return DefaultValue(propertyInfo);
+            return DefaultValue(v);
         }
 
 
-        public T DefaultValue(PropertyInfo propertyInfo)
+        public T DefaultValue(Variable v)
         {
-            return AppliesTo(propertyInfo) ? _defaultValue.Invoke(propertyInfo) : default(T);
+            return AppliesTo(v) ? _defaultValue.Invoke(v) : default(T);
         }
     }
 }

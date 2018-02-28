@@ -11,6 +11,7 @@ namespace Fluency
         internal Func<IIdGenerator> ConstructIdGenerator { get; set; }
 
         public List<IDefaultConvention> DefaultValueConventions { get; set; }
+        public List<IDefaultConvention> DotNetDefaultConventions { get; set; }
 
         readonly Dictionary<Type, IIdGenerator> _idGenerators = new Dictionary<Type, IIdGenerator>();
 
@@ -46,7 +47,12 @@ namespace Fluency
                 Convention.ByName( "BirthDate", p => ARandom.BirthDate() ),
                 Convention.DateType(),
                 Convention.IntegerType(),
-                Convention.ByType< Decimal>( p => ARandom.CurrencyAmount()  )
+                Convention.ByType<Decimal>( p => ARandom.CurrencyAmount()  )
+            };
+
+            DotNetDefaultConventions = new List<IDefaultConvention>
+            {
+                Convention.Default()
             };
         }
 

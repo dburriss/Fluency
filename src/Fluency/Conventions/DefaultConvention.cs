@@ -1,11 +1,9 @@
-﻿using System.Reflection;
-
-namespace Fluency.Conventions
+﻿namespace Fluency.Conventions
 {
     public abstract class DefaultConvention<T> : IDefaultConvention<T>
     {
-        public abstract bool AppliesTo(PropertyInfo propertyInfo);
-        public abstract T DefaultValue(PropertyInfo propertyInfo);
+        public abstract bool AppliesTo(Variable v);
+        public abstract T DefaultValue(Variable v);
 
 
         /// <summary>
@@ -13,10 +11,10 @@ namespace Fluency.Conventions
         /// </summary>
         /// <param name="propertyInfo">The property info.</param>
         /// <returns></returns>
-        object IDefaultConvention.DefaultValue(PropertyInfo propertyInfo)
+        object IDefaultConvention.DefaultValue(Variable v)
         {
             // Fake covariance by returning object when cast as IDefaultConvetion.
-            return DefaultValue(propertyInfo);
+            return DefaultValue(v);
         }
     }
 }

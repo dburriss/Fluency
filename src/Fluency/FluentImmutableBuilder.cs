@@ -14,10 +14,18 @@ namespace Fluency
         private readonly IList<IDefaultConvention> _defaultConventions = new List<IDefaultConvention>();
         protected IIdGenerator IdGenerator;
 
-        public FluentImmutableBuilder()
+        public FluentImmutableBuilder(bool useFluencyConventions = false)
         {
             IdGenerator = Fluency.Configuration.GetIdGenerator<T>();
-            _defaultConventions = Fluency.Configuration.DefaultValueConventions;
+            if (useFluencyConventions)
+            {
+                _defaultConventions = Fluency.Configuration.DefaultValueConventions;
+            }
+            else
+            {
+                _defaultConventions = Fluency.Configuration.DotNetDefaultConventions;
+            }
+            
             SetupDefaultValues();
             if(_constructor.GetParameters().Length == 0)
             {
@@ -56,26 +64,32 @@ namespace Fluency
             foreach (var pi in ps)
             {
                 var name = pi.Name;
-                var t = pi.ParameterType;
-                var defaultValue = pi.DefaultValue;
-                if (defaultValue == DBNull.Value)
-                {
-                    defaultValue = null;
-                }
-                else
-                {
-                    defaultValue = GetDefault(t);
-                }
+                var defaultValue = GetDefault(pi);
                 _values[name] = defaultValue;
             }
         }
 
-        public static object GetDefault(Type type)
+        private object GetDefault(ParameterInfo parameterInfo)
         {
-            if (type.IsValueType)
+            var type = parameterInfo.ParameterType;
+            object value = GetDefaultValue(parameterInfo);
+            //if (value == null && type.IsValueType)
+            //{
+            //    return Activator.CreateInstance(type);
+            //}
+            return null;
+        }
+
+        private object GetDefaultValue(ParameterInfo parameterInfo)
+        {
+            foreach (var defaultConvention in _defaultConventions)
             {
-                return Activator.CreateInstance(type);
+                // first convention match wins...
+                if (defaultConvention.AppliesTo(Variable.From(parameterInfo)))
+                    return defaultConvention.DefaultValue(Variable.From(parameterInfo));
             }
+
+            // Returns null if no convention matched.
             return null;
         }
 
