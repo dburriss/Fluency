@@ -35,7 +35,7 @@ namespace Fluency.Net.Standard.Tests.Builders
         public Given_AFluentImmutableBuilder_ThatUsesDefaultValueConventions()
         {
             Fluency.Initialize(x => x.UseDefaultValueConventions());
-            Sut = new FluentImmutableBuilder<ImmutableTestClass>();
+            Sut = new FluentImmutableBuilder<ImmutableTestClass>(true);
         }
 
         public class WhenBuildingTheObject : Given_AFluentImmutableBuilder_ThatUsesDefaultValueConventions
@@ -47,9 +47,9 @@ namespace Fluency.Net.Standard.Tests.Builders
                 _result = Sut.build();
             }
 
-            //[Fact]
-            //public void It_Should_UseDefaultConventionFor_FirstNameProperty() =>
-            //    _result.FirstName.Should().BeOneOf(RandomData.FirstNames);
+            [Fact]
+            public void It_Should_UseDefaultConventionFor_FirstNameProperty() =>
+                _result.FirstName.Should().BeOneOf(RandomData.FirstNames);
         }
     }
 }
