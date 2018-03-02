@@ -51,7 +51,7 @@ namespace Fluency
                 Convention.ByName( "BirthDate", p => ARandom.BirthDate() ),
                 Convention.DateType(),
                 Convention.IntegerType(),
-                Convention.ByType< Decimal>( p => ARandom.CurrencyAmount()  )
+                Convention.ByType<Decimal>( p => ARandom.CurrencyAmount()  )
             };
         }
     }

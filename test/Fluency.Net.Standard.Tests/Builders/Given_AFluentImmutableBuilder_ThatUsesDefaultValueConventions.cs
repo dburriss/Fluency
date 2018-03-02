@@ -50,6 +50,10 @@ namespace Fluency.Net.Standard.Tests.Builders
             [Fact]
             public void It_Should_UseDefaultConventionFor_FirstNameProperty() =>
                 _result.FirstName.Should().BeOneOf(RandomData.FirstNames);
+
+            [Fact]
+            public void It_Should_UseDefaultConventionFor_Integer() =>
+                _result.IntegerProperty.Should().BeInRange(1, 9999);
         }
     }
 }

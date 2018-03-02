@@ -73,11 +73,7 @@ namespace Fluency
         {
             var type = parameterInfo.ParameterType;
             object value = GetDefaultValue(parameterInfo);
-            //if (value == null && type.IsValueType)
-            //{
-            //    return Activator.CreateInstance(type);
-            //}
-            return null;
+            return value;
         }
 
         private object GetDefaultValue(ParameterInfo parameterInfo)
@@ -86,7 +82,10 @@ namespace Fluency
             {
                 // first convention match wins...
                 if (defaultConvention.AppliesTo(Variable.From(parameterInfo)))
+                {
                     return defaultConvention.DefaultValue(Variable.From(parameterInfo));
+                }
+                    
             }
 
             // Returns null if no convention matched.
